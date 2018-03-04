@@ -56,9 +56,10 @@ class LoadFromGoogle extends CI_Controller {
 	public function save(){
         try{
             if($this->input->method() == 'post'){
+                $emotion = $_POST['emotion'];
                 $pics_to_save = $_POST['pics'];
                 foreach ($pics_to_save as $pic) {
-                    $this->PictureModel->saveImage($pic);
+                    $this->PictureModel->saveImage($pic, $emotion);
                 }
 
                 // -------

@@ -31,8 +31,9 @@
 			<div class="list-group row left col-sm-3 col-md-2">
 				<p class="list-group-item active">TEST</p>
 				<a href="<?php echo site_url('/test/create')?>" class="list-group-item">Do test</a>
-                <p class="list-group-item active">Load from Google</p>
+                <p class="list-group-item active">Load pictures</p>
                 <a href="<?php echo site_url('/loadfromgoogle/create')?>" class="list-group-item">Load from Google</a>
+                <a href="<?php echo site_url('/loadfromfile/create')?>" class="list-group-item">Load from file</a>
             </div>
 
 			<div class="row">

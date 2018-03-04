@@ -8,7 +8,7 @@
 	<form class="form-horizontal" method="post" enctype="multipart/form-data">
 		<div class="col-md-12">
 			<div class="form-group">
-                <label for="url" class="col-md-2 control-label">URL* :</label>
+                <label for="url" class="col-md-2 control-label">Select emotion* :</label>
                 <div class="col-md-10">
                     <select name="emotion" class="form-control">
                         <option selected value="anger">Enfado</option>
