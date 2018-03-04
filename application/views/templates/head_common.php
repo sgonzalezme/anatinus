@@ -13,6 +13,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="/public/theme-sb-admin-2/dist/css/sb-admin-2.css" >
+    <link rel="stylesheet" type="text/css" href="/public/css/common.css" >
 
     <!-- Custom Fonts -->
     <link rel="stylesheet" type="text/css" href="/public/theme-sb-admin-2/vendor/font-awesome/css/font-awesome.min.css" >

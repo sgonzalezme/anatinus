@@ -34,6 +34,8 @@
                 <p class="list-group-item active">Load pictures</p>
                 <a href="<?php echo site_url('/loadfromgoogle/create')?>" class="list-group-item">Load from Google</a>
                 <a href="<?php echo site_url('/loadfromfile/create')?>" class="list-group-item">Load from file</a>
+                <p class="list-group-item active">Gallery</p>
+                <a href="<?php echo site_url('/gallery/index')?>" class="list-group-item">Picture gallery</a>
             </div>
 
 			<div class="row">

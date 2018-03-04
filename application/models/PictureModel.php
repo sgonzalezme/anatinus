@@ -20,7 +20,7 @@ class PictureModel extends CI_Model {
 
 	public function getAllPictures() {
 		$sql = 'SELECT *
-				FROM picture
+				FROM images
 				WHERE active is true';
 		$stmt = $this->db->query ( $sql );
         $pictures = $stmt->result_array();

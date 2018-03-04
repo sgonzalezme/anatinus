@@ -15,13 +15,13 @@
             <div class ="col-md-12">
                 <label for="url" class=" control-label">Emotion* :</label>
                 <select name="emotion" class="col-md-8 form-control">
-                    <option selected value="anger">Enfado</option>
-                    <option selected value="contempt">Desprecio</option>
-                    <option selected value="disgust">Asco</option>
-                    <option selected value="fear">Miedo</option>
-                    <option selected value="happiness">Felicidad</option>
-                    <option selected value="sadness">Tristeza</option>
-                    <option selected value="surprise">Sorpresa</option>
+                    <option selected value="anger">Anger</option>
+                    <option selected value="contempt">Contempt</option>
+                    <option selected value="disgust">Disgust</option>
+                    <option selected value="fear">Fear</option>
+                    <option selected value="happiness">Happiness</option>
+                    <option selected value="sadness">Sadness</option>
+                    <option selected value="surprise">Surprise</option>
                 </select>
 			</div>
             <div class="col-md-12" style="margin-top: 20px">
@@ -30,7 +30,7 @@
             </div>
 			<div class="form-group">
 				<div class="col-md-10 col-md-offset-10">
-					<a class="btn btn-link" href="<?php echo site_url('/')?>">Volver</a>
+					<a class="btn btn-link" href="<?php echo site_url('/')?>">Back</a>
 					<button type="submit" class="btn btn-default">Load</button>
 				</div>
 			</div>
