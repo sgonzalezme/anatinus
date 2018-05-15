@@ -10,6 +10,7 @@ class Gallery extends CI_Controller {
 	}
 
 	public function index(){
+
 	    /** @var array $pictures */
 	    $pictures = $this->PictureModel->getAllPictures();
 
