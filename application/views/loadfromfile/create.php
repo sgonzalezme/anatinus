@@ -15,13 +15,9 @@
             <div class ="col-md-12">
                 <label for="url" class=" control-label">Emotion* :</label>
                 <select name="emotion" class="col-md-8 form-control">
-                    <option selected value="anger">Anger</option>
-                    <option selected value="contempt">Contempt</option>
-                    <option selected value="disgust">Disgust</option>
-                    <option selected value="fear">Fear</option>
-                    <option selected value="happiness">Happiness</option>
-                    <option selected value="sadness">Sadness</option>
-                    <option selected value="surprise">Surprise</option>
+                    <?php foreach ($emotions as $emotion){ ?>
+                    <option selected value="<?php echo $emotion ?>"><?php echo $emotion ?></option>
+                    <?php } ?>
                 </select>
 			</div>
             <div class="col-md-12" style="margin-top: 20px">

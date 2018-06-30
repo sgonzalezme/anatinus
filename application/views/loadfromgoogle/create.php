@@ -10,14 +10,10 @@
 			<div class="form-group">
                 <label for="url" class="col-md-2 control-label">Select emotion* :</label>
                 <div class="col-md-10">
-                    <select name="emotion" class="form-control">
-                        <option selected value="anger">Anger</option>
-                        <option selected value="contempt">Contempt</option>
-                        <option selected value="disgust">Disgust</option>
-                        <option selected value="fear">Fear</option>
-                        <option selected value="happiness">Happiness</option>
-                        <option selected value="sadness">Sadness</option>
-                        <option selected value="surprise">Surprise</option>
+                    <select name="emotion" class="col-md-8 form-control">
+                        <?php foreach ($emotions as $emotion){ ?>
+                            <option selected value="<?php echo $emotion ?>"><?php echo $emotion ?></option>
+                        <?php } ?>
                     </select>
                 </div>
 			</div>

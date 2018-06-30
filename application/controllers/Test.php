@@ -6,7 +6,8 @@ class Test extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->helper('url_helper');
-		//$this->load->library('image_lib');
+        $this->load->model('ConfigurationModel');
+        //$this->load->library('image_lib');
 	}
 
 	public function index(){
@@ -19,12 +20,16 @@ class Test extends CI_Controller {
 	
 	public function create(){
 		try{
+
+		    $api_key = $this->ConfigurationModel->getApiKey();
+		    $api_url = $this->ConfigurationModel->getApiUrl();
+
 			if($this->input->method() == 'post'){
 				$url = $_POST['url'];
 
 				// api
 
-                $curl = curl_init(API_URL . "?returnFaceId=false&returnFaceAttributes=emotion");
+                $curl = curl_init($api_url . "?returnFaceId=false&returnFaceAttributes=emotion");
                 $data = array(
                     'url' => $url
                 );
@@ -32,7 +37,7 @@ class Test extends CI_Controller {
                 curl_setopt($curl, CURLOPT_POST, true );
                 curl_setopt($curl, CURLOPT_HTTPHEADER, array(
                     'Content-Type: application/json; charset=utf-8',
-                    'Ocp-Apim-Subscription-Key: ' . API_KEY
+                    'Ocp-Apim-Subscription-Key: ' . $api_key
                 ));
                 // TEMPORAL, por el https de la llamada a la api
                 curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);

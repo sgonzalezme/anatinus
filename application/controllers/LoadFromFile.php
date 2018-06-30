@@ -7,22 +7,27 @@ class LoadFromFile extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url_helper');
 		$this->load->model('PictureModel');
+		$this->load->model('ConfigurationModel');
     }
 
-	public function index(){
-		$data = array();
-		$this->load->view('templates/head_common');
-		$this->load->view('templates/header');
-		$this->load->view('loadfromfile/create', $data);
-		$this->load->view('templates/footer');
-	}
+//	public function index(){
+//	    $data = array();
+//		$this->load->view('templates/head_common');
+//		$this->load->view('templates/header');
+//		$this->load->view('loadfromfile/create', $data);
+//		$this->load->view('templates/footer');
+//	}
 	
 	public function create(){
 		try{
+
 			if($this->input->method() == 'post'){
+                $upload_path = $this->ConfigurationModel->getUploadPath();
+                $admin_domain = $this->ConfigurationModel->getAdminDomain();
+
                 $emotion = $this->input->post('emotion');
 
-                $config['upload_path']          = '.' . UPLOAD_PATH;
+                $config['upload_path']          = ".$upload_path";
                 $config['allowed_types']        = 'gif|jpg|png';
                 $config['max_size']             = 4*1024; //4MB
 
@@ -37,7 +42,7 @@ class LoadFromFile extends CI_Controller {
                 }
                 else {
                     $upload_data = $this->upload->data();
-                    $url = DOMAIN . UPLOAD_PATH . $upload_data['file_name'];
+                    $url = $admin_domain . $upload_path . $upload_data['file_name'];
                     $this->PictureModel->saveImage($url, $emotion);
 
                     $data = array(
@@ -50,8 +55,13 @@ class LoadFromFile extends CI_Controller {
                 $this->load->view('loadfromfile/create', $data);
                 $this->load->view('templates/footer');
 
-			} else{
-				$data = array();
+			}
+			else{
+                $emotions = $this->ConfigurationModel->getAvailableEmotions();
+                $data = array(
+                    'emotions' => $emotions
+                );
+
 				$this->load->view('templates/head_common');
 				$this->load->view('templates/header');
                 $this->load->view('loadfromfile/create', $data);

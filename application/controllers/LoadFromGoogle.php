@@ -11,15 +11,16 @@ class LoadFromGoogle extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url_helper');
 		$this->load->model('PictureModel');
+		$this->load->model('ConfigurationModel');
 	}
 
-	public function index(){
-		$data = array();
-		$this->load->view('templates/head_common');
-		$this->load->view('templates/header');
-		$this->load->view('loadfromgoogle/create', $data);
-		$this->load->view('templates/footer');
-	}
+//	public function index(){
+//		$data = array();
+//		$this->load->view('templates/head_common');
+//		$this->load->view('templates/header');
+//		$this->load->view('loadfromgoogle/create', $data);
+//		$this->load->view('templates/footer');
+//	}
 	
 	public function create(){
 		try{
@@ -40,8 +41,12 @@ class LoadFromGoogle extends CI_Controller {
                 $this->load->view('loadfromgoogle/results', $data);
                 $this->load->view('templates/footer');
 
-			} else{
-				$data = array();
+			}
+			else{
+                $emotions = $this->ConfigurationModel->getAvailableEmotions();
+                $data = array(
+                    'emotions' => $emotions
+                );
 				$this->load->view('templates/head_common');
 				$this->load->view('templates/header');
                 $this->load->view('loadfromgoogle/create', $data);
