@@ -8,44 +8,22 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Num. questions</th>
+            <th scope="col">Emotion</th>
             <th scope="col">Right answers</th>
-            <th scope="col">Wrong answers</th>
+            <th scope="col">Total of questions</th>
             <th scope="col">Result (over 10)</th>
-            <th scope="col">Summary</th>
-            <th scope="col">Date</th>
         </tr>
         </thead>
         <tbody>
 
-    <?php foreach ($games as $game){ ?>
-        <tr class="table-active">
-            <th scope="row"><?php echo $game['game_id'] ?></th>
-            <td><?php echo $game['username'] ?></td>
-            <td><?php echo $game['num_questions'] ?></td>
-            <td><?php echo $game['right_answers'] ?></td>
-            <td><?php echo $game['wrong_answers'] ?></td>
-            <td><?php echo ($game['right_answers'] / $game['num_questions']) * 10 ?></td>
-            <td>
-                <ul>
-                    <?php
-                    $summary = explode(',', $game['summary']);
-                    foreach ($summary as $answer){
-                        $answer_and_result = explode('-', $answer);
-                        if($answer_and_result[1]){
-                            echo "<li> {$answer_and_result[0]} <i class=\"text-success fa fa-check\"></i> </li>";
-                        } else{
-                            echo "<li> {$answer_and_result[0]} <i class=\"text-danger fa fa-times\"></i> </li>";
-                        }
-                    }
-                    ?>
-                </ul>
-            </td>
-            <td><?php echo $game['created_at'] ?></td>
-        </tr>
-    <?php } ?>
+        <?php foreach ($stats as $stat){ ?>
+            <tr class="table-active">
+                <td><?php echo $stat['emotion'] ?></td>
+                <td><?php echo $stat['right_answers'] ?></td>
+                <td><?php echo $stat['total'] ?></td>
+                <td><?php echo ($stat['right_answers'] / $stat['total']) * 10 ?></td>
+            </tr>
+        <?php } ?>
         </tbody>
     </table>
 

@@ -26,13 +26,13 @@ class Results extends CI_Controller {
 
     public function get($user_id){
 
-        /** @var array $user_games */
-        $user_games = $this->ResultModel->getResultsFromUser($user_id);
+        /** @var array $user_stats */
+        $user_stats = $this->ResultModel->getResultsByEmotion($user_id);
         /** @var array $user */
         $user = $this->UserModel->getUserById($user_id);
 
         $data = array(
-            'games'     => $user_games,
+            'stats'     => $user_stats,
             'username'  => $user['username']
         );
         $this->load->view('templates/head_common');
