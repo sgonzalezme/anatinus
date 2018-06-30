@@ -41,6 +41,21 @@ class Results extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    public function game($game_id){
+
+        /** @var array $game_stats */
+        $game_stats = $this->ResultModel->getResultsByGame($game_id);
+
+        $data = array(
+            'stats'     => $game_stats,
+            'username'  => $game_stats[0]['username'],
+            'game_id'   => $game_id
+        );
+        $this->load->view('templates/head_common');
+        $this->load->view('templates/header');
+        $this->load->view('results/game', $data);
+        $this->load->view('templates/footer');
+    }
 
 
 

@@ -46,5 +46,19 @@ class ResultModel extends CI_Model {
 
         return $stats;
     }
+
+    public function getResultsByGame($game_id) {
+        $sql = 'SELECT user.username as username, 
+                game_emotion.*,
+                images.url as image_url
+				FROM game_emotion
+				LEFT JOIN user on game_emotion.user_id = user.user_id
+				LEFT JOIN images on game_emotion.image_id = images.img_id
+				WHERE game_emotion.game_id = ?';
+        $stmt = $this->db->query ( $sql, array($game_id));
+        $stats = $stmt->result_array();
+
+        return $stats;
+    }
 	
 }
