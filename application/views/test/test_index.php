@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-lg-9">
-		<h4 class="page-header">Test</h4>
+		<h4 class="page-header">Check image</h4>
 	</div>
 </div>
 

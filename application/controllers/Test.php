@@ -49,8 +49,6 @@ class Test extends CI_Controller {
                 $curl_response = curl_exec($curl);
                 $response = json_decode($curl_response, true);
 
-                var_dump($response);
-
                 curl_close($curl);
 
                 // Build of the results
