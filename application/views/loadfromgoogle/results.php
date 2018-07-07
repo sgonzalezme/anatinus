@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-lg-9">
-		<h4 class="page-header">Results for <?php echo $emotion ?></h4>
+		<h4 class="page-header">Results for <?php echo urldecode($emotion) ?></h4>
 	</div>
 </div>
 
@@ -21,8 +21,15 @@
         }?></p>
 
         <div class="form-group">
-            <div class="col-md-10 col-md-offset-10">
-                <a class="btn btn-link" href="<?php echo site_url('/loadfromgoogle/create')?>">Volver</a>
+            <div class="col-md-7">
+                <br/><br/>
+                <label for="emotion">Save image(s) as:</label> <br/>
+                <select class="form-control" name="emotion" id="emotion">
+                <?php foreach ($emotions as $emotion){ ?>
+                    <option value="<?php echo $emotion?>"><?php echo $emotion ?></option>
+                <?php } ?>
+                </select>
+                <br/><br/>
                 <button type="submit" class="btn btn-default">Save selected images</button>
             </div>
         </div>

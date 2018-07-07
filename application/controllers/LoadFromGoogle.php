@@ -14,18 +14,10 @@ class LoadFromGoogle extends CI_Controller {
 		$this->load->model('ConfigurationModel');
 	}
 
-//	public function index(){
-//		$data = array();
-//		$this->load->view('templates/head_common');
-//		$this->load->view('templates/header');
-//		$this->load->view('loadfromgoogle/create', $data);
-//		$this->load->view('templates/footer');
-//	}
-	
 	public function create(){
 		try{
 			if($this->input->method() == 'post'){
-				$emotion = $_POST['emotion'];
+				$emotion = urlencode($_POST['emotion']);
 				$results_1 = $this->getNext10Elements($emotion, 1);
 				$results_2 = $this->getNext10Elements($emotion, 11);
                 $results_3 = $this->getNext10Elements($emotion, 21);
@@ -33,6 +25,7 @@ class LoadFromGoogle extends CI_Controller {
 				$data = array();
 				$data['emotion'] = $emotion;
 				$data['results'] = array_merge($results_1, $results_2, $results_3);
+				$data['emotions'] = $this->ConfigurationModel->getAvailableEmotions();
 
 				// -------
 
@@ -43,10 +36,7 @@ class LoadFromGoogle extends CI_Controller {
 
 			}
 			else{
-                $emotions = $this->ConfigurationModel->getAvailableEmotions();
-                $data = array(
-                    'emotions' => $emotions
-                );
+                $data = array();
 				$this->load->view('templates/head_common');
 				$this->load->view('templates/header');
                 $this->load->view('loadfromgoogle/create', $data);
@@ -61,7 +51,7 @@ class LoadFromGoogle extends CI_Controller {
 	public function save(){
         try{
             if($this->input->method() == 'post'){
-                $emotion = $_POST['emotion'];
+                $emotion = urlencode($_POST['emotion']);
                 $pics_to_save = $_POST['pics'];
                 foreach ($pics_to_save as $pic) {
                     $this->PictureModel->saveImage($pic, $emotion);
@@ -89,7 +79,6 @@ class LoadFromGoogle extends CI_Controller {
         // Make the REST call, returning the result
         $curl_response = curl_exec($curl);
         $response = json_decode($curl_response, true);
-
         curl_close($curl);
 
         // Build of the results

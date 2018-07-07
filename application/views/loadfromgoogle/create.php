@@ -8,13 +8,9 @@
 	<form class="form-horizontal" method="post" enctype="multipart/form-data">
 		<div class="col-md-12">
 			<div class="form-group">
-                <label for="url" class="col-md-2 control-label">Select emotion* :</label>
+                <label for="url" class="col-md-2 control-label">Search an emotion* :</label>
                 <div class="col-md-10">
-                    <select name="emotion" class="col-md-8 form-control">
-                        <?php foreach ($emotions as $emotion){ ?>
-                            <option selected value="<?php echo $emotion ?>"><?php echo $emotion ?></option>
-                        <?php } ?>
-                    </select>
+                    <input class="form-control" required name="emotion" id="emotion" placeholder="happy child" value="happy child" />
                 </div>
 			</div>
 			
