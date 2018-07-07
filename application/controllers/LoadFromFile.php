@@ -38,6 +38,7 @@ class LoadFromFile extends CI_Controller {
                     $data = array(
                         'success' => false,
                         'result' => "Error uploading image: $error",
+                        'emotions' => $this->ConfigurationModel->getAvailableEmotions()
                     );
                 }
                 else {
@@ -48,6 +49,7 @@ class LoadFromFile extends CI_Controller {
                     $data = array(
                         'success' => true,
                         'result' => "Image uploaded: $url",
+                        'emotions' => $this->ConfigurationModel->getAvailableEmotions()
                     );
                 }
                 $this->load->view('templates/head_common');
