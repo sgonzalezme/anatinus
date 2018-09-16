@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+use \Aws\Rekognition\RekognitionClient;
+
 class Test extends CI_Controller {
 
 	public function __construct()
@@ -7,6 +9,7 @@ class Test extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url_helper');
         $this->load->model('ConfigurationModel');
+        $this->load->model('PictureModel');
         //$this->load->library('image_lib');
 	}
 
@@ -19,87 +22,62 @@ class Test extends CI_Controller {
 	}
 	
 	public function create(){
-		try{
 
-		    $api_key = $this->ConfigurationModel->getApiKey();
-		    $api_url = $this->ConfigurationModel->getApiUrl();
+	    try {
 
-			if($this->input->method() == 'post'){
-				$url = $_POST['url'];
+            if ($this->input->method() == 'post') {
+                $options = [
+                    'profile' => 'default',
+                    'region' => 'us-west-2',
+                    'version' => 'latest'
+                ];
 
-				// api
+                $rekognition = new RekognitionClient($options);
+                $picture = $_FILES['picture'];
+                $image_as_binary = file_get_contents($picture["tmp_name"]);
+                $mime_type = $picture['type'];
 
-                $curl = curl_init($api_url . "?returnFaceId=false&returnFaceAttributes=emotion");
-                $data = array(
-                    'url' => $url
+                // Call DetectFaces
+                $result = $rekognition->DetectFaces(array(
+                        'Image' => array(
+                            'Bytes' => $image_as_binary
+                        ),
+                        "MinConfidence" => 80,
+                        'Attributes' => array('ALL') //DEFAULT doesn't have emotions
+                    )
                 );
-                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($curl, CURLOPT_POST, true );
-                curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-                    'Content-Type: application/json; charset=utf-8',
-                    'Ocp-Apim-Subscription-Key: ' . $api_key
-                ));
-                // TEMPORAL, por el https de la llamada a la api
-                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 
-                curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+                $face_details = $result->get('FaceDetails');
+                $emotions = $face_details[0]['Emotions'];
 
-                // Make the REST call, returning the result
-                $curl_response = curl_exec($curl);
-                $response = json_decode($curl_response, true);
-
-                curl_close($curl);
-
-                // Build of the results
-                $results = array();
-                foreach ($response as $num => $face){
-                    $emotions = $face['faceAttributes']['emotion'];
-                    arsort($emotions);
-                    reset($emotions);
-                    $results[$num] = key($emotions);
-                }
-
-				$data = array();
-				$data['results'] = $results;
-
-				// -------
+                $data = array(
+                    'result' => array(
+                        'emotions' => $emotions,
+                        'image' => "data:$mime_type;base64," . base64_encode($image_as_binary)
+                    )
+                );
 
                 $this->load->view('templates/head_common');
                 $this->load->view('templates/header');
-                $this->load->view('test/test_index', $data);
+                $this->load->view('test/test_create', $data);
                 $this->load->view('templates/footer');
 
-				//redirect('/test');
-	
-			} else{
-				$data = array();
-	
-				$this->load->view('templates/head_common');
-				$this->load->view('templates/header');
-				$this->load->view('test/test_create', $data);
-				$this->load->view('templates/footer');
-			}
-		}
+            } else {
+                // -------
+
+                $this->load->view('templates/head_common');
+                $this->load->view('templates/header');
+                $this->load->view('test/test_create', array());
+                $this->load->view('templates/footer');
+
+                //redirect('/test');
+
+            }
+        }
 		catch(Exception $e){
+	        var_dump($e->getMessage());
 			show_404();
 		}
-	}
-
-	public function delete($id){
-//		try{
-//
-//			$deleted = $this->brandModel->deleteBrand($id);
-//			if($deleted){
-//				redirect('/brands');
-//			} else{
-//				throw new Exception();
-//			}
-//
-//		}
-//		catch(Exception $e){
-//			show_error('No se ha podido eliminar la marca #' . $id);
-//		}
 	}
 
 	
