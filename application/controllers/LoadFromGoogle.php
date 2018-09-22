@@ -12,6 +12,7 @@ class LoadFromGoogle extends CI_Controller {
 		$this->load->helper('url_helper');
 		$this->load->model('PictureModel');
 		$this->load->model('ConfigurationModel');
+		$this->load->model('RekognitionModel');
 	}
 
 	public function create(){
@@ -25,8 +26,6 @@ class LoadFromGoogle extends CI_Controller {
 				$data = array();
 				$data['emotion'] = $emotion;
 				$data['results'] = array_merge($results_1, $results_2, $results_3);
-				$data['emotions'] = $this->ConfigurationModel->getAvailableEmotions();
-
 				// -------
 
                 $this->load->view('templates/head_common');
@@ -51,17 +50,13 @@ class LoadFromGoogle extends CI_Controller {
 	public function save(){
         try{
             if($this->input->method() == 'post'){
-                $emotion = urlencode($_POST['emotion']);
                 $pics_to_save = $_POST['pics'];
                 foreach ($pics_to_save as $pic) {
-                    $this->PictureModel->saveImage($pic, $emotion);
+                    $decoded_pic = json_decode($pic, true);
+                    $this->PictureModel->saveImage($decoded_pic['link'], $decoded_pic['emotion']);
                 }
-
-                // -------
-                redirect('/loadfromgoogle/create');
-            } else{
-                redirect('/loadfromgoogle/create');
             }
+            redirect('/loadfromgoogle/create');
         }
         catch(Exception $e){
             show_404();
@@ -72,7 +67,7 @@ class LoadFromGoogle extends CI_Controller {
         $url = self::CUSTOM_SEARCH_API_URL .
             "?key=" . self::CUSTOM_SEARCH_API_KEY .
             "&cx=" . self::CUSTOM_SEARCH_API_CX .
-            "&q=$emotion%20face&searchType=image&imgType=photo&start=$init";
+            "&q=$emotion&searchType=image&imgType=photo&start=$init";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
@@ -85,7 +80,8 @@ class LoadFromGoogle extends CI_Controller {
         $results = array();
         foreach ($response['items'] as $num => $face){
             $link = $face['link'];
-            $results[$num] = $link;
+            $rekognition_result = $this->RekognitionModel->getEmotionFromUrl($link);
+            $results[$num] = $rekognition_result;
         }
 
         return $results;

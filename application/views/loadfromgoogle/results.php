@@ -10,10 +10,10 @@
         <p><?php if(!empty($results) ){
             foreach ($results as $key => $result){
                 echo '<div class="col-md-4" style="border:1px lightgray dotted">';
-                    echo "<img src='$result' height='200px' class='col-md-12' />";
-
+                    echo "<img src='{$result['link']}' height='200px' class='col-md-12' />";
+                    echo "<p>{$result['emotion']}</p>";
                     echo '<p class="col-md-12">
-                        <input type="checkbox" value="' . $result . '" name="pics[]" />
+                        <input type="checkbox" value=\'' . json_encode($result) . '\' name="pics[]" />
                         Save
                     </p>';
                 echo '</div>';
@@ -23,12 +23,7 @@
         <div class="form-group">
             <div class="col-md-7">
                 <br/><br/>
-                <label for="emotion">Save image(s) as:</label> <br/>
-                <select class="form-control" name="emotion" id="emotion">
-                <?php foreach ($emotions as $emotion){ ?>
-                    <option value="<?php echo $emotion?>"><?php echo $emotion ?></option>
-                <?php } ?>
-                </select>
+                <label for="emotion">Save image(s):</label> <br/>
                 <br/><br/>
                 <button type="submit" class="btn btn-default">Save selected images</button>
             </div>
