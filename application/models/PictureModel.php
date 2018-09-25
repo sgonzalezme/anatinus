@@ -25,6 +25,7 @@ class PictureModel extends CI_Model {
     }
 
     public function saveImage($url, $emotion){
+	    $emotion = strtolower($emotion);
 
         // crear la entidad
         $sql = 'INSERT INTO images
