@@ -13,8 +13,7 @@ Thumbs.db
 .idea/
 .project
 .editorconfig
-/application/config/*
-/public/uploads
+
 
 #Other files
 contributing.md
