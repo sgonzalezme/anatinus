@@ -9,14 +9,6 @@ class LoadFromFile extends CI_Controller {
 		$this->load->model('PictureModel');
 		$this->load->model('ConfigurationModel');
     }
-
-//	public function index(){
-//	    $data = array();
-//		$this->load->view('templates/head_common');
-//		$this->load->view('templates/header');
-//		$this->load->view('loadfromfile/create', $data);
-//		$this->load->view('templates/footer');
-//	}
 	
 	public function create(){
 		try{

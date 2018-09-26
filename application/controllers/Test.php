@@ -63,14 +63,11 @@ class Test extends CI_Controller {
                 $this->load->view('templates/footer');
 
             } else {
-                // -------
 
                 $this->load->view('templates/head_common');
                 $this->load->view('templates/header');
                 $this->load->view('test/test_create', array());
                 $this->load->view('templates/footer');
-
-                //redirect('/test');
 
             }
         }
