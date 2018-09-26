@@ -2,10 +2,6 @@
 
 class LoadFromGoogle extends CI_Controller {
 
-//    const CUSTOM_SEARCH_API_KEY = 'AIzaSyB2pTFm-D8GcHRZiELqedJNr6sGa6xr0UY';
-//    const CUSTOM_SEARCH_API_URL = 'https://www.googleapis.com/customsearch/v1';
-//    const CUSTOM_SEARCH_API_CX = '015513001353225384047:nxv91uwfvx4';
-
 	public function __construct()
 	{
 		parent::__construct();
