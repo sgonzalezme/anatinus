@@ -1,1 +1,1 @@
-<h3>Panel de control</h3>
+<h3>Admin Dashboard</h3>

@@ -13,6 +13,6 @@
     width:250px;
     height:250px;
 }
-body,button{
+body,button,.btn{
     font-size: large;
 }

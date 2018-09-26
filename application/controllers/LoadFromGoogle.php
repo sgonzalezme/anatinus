@@ -2,9 +2,9 @@
 
 class LoadFromGoogle extends CI_Controller {
 
-    const CUSTOM_SEARCH_API_KEY = 'AIzaSyB2pTFm-D8GcHRZiELqedJNr6sGa6xr0UY';
-    const CUSTOM_SEARCH_API_URL = 'https://www.googleapis.com/customsearch/v1';
-    const CUSTOM_SEARCH_API_CX = '015513001353225384047:nxv91uwfvx4';
+//    const CUSTOM_SEARCH_API_KEY = 'AIzaSyB2pTFm-D8GcHRZiELqedJNr6sGa6xr0UY';
+//    const CUSTOM_SEARCH_API_URL = 'https://www.googleapis.com/customsearch/v1';
+//    const CUSTOM_SEARCH_API_CX = '015513001353225384047:nxv91uwfvx4';
 
 	public function __construct()
 	{
@@ -64,9 +64,12 @@ class LoadFromGoogle extends CI_Controller {
 	}
 
     private function getNext10Elements($emotion, $init){
-        $url = self::CUSTOM_SEARCH_API_URL .
-            "?key=" . self::CUSTOM_SEARCH_API_KEY .
-            "&cx=" . self::CUSTOM_SEARCH_API_CX .
+	    $cse_url = $this->ConfigurationModel->getCustomSearchApiUrl();
+	    $cse_key = $this->ConfigurationModel->getCustomSearchApiKey();
+	    $cse_cx  = $this->ConfigurationModel->getCustomSearchApiCx();
+        $url = $cse_url .
+            "?key=" . $cse_key .
+            "&cx="  . $cse_cx .
             "&q=$emotion&searchType=image&imgType=photo&start=$init";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

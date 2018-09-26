@@ -101,6 +101,47 @@ class ConfigurationModel extends CI_Model {
         return $config;
     }
 
+    public function getCustomSearchApiKey() {
+        $sql = 'SELECT value
+				FROM configuration
+				WHERE configuration.path = "cse_api_key"';
+        $stmt = $this->db->query ( $sql );
+        $config = $stmt->result_array();
+
+        if($config){
+            $config = $config[0]['value'];
+        }
+
+        return $config;
+    }
+
+    public function getCustomSearchApiUrl() {
+        $sql = 'SELECT value
+				FROM configuration
+				WHERE configuration.path = "cse_api_url"';
+        $stmt = $this->db->query ( $sql );
+        $config = $stmt->result_array();
+
+        if($config){
+            $config = $config[0]['value'];
+        }
+
+        return $config;
+    }
+    public function getCustomSearchApiCx() {
+        $sql = 'SELECT value
+				FROM configuration
+				WHERE configuration.path = "cse_api_cx"';
+        $stmt = $this->db->query ( $sql );
+        $config = $stmt->result_array();
+
+        if($config){
+            $config = $config[0]['value'];
+        }
+
+        return $config;
+    }
+
 
 	
 }
